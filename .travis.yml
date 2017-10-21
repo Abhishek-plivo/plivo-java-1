@@ -3,4 +3,4 @@ jdk:
   - oraclejdk8
   - oraclejdk9
   - openjdk7
-script: "compile group: 'com.plivo', name: 'plivo-java', version: '4.0.0'"
+# script: "compile group: 'com.plivo', name: 'plivo-java', version: '4.0.0'"
