@@ -3,4 +3,6 @@ jdk:
   - oraclejdk8
   - oraclejdk9
   - openjdk7
+before_install:
+ - chmod +x gradlew
 # script: "compile group: 'com.plivo', name: 'plivo-java', version: '4.0.0'"
