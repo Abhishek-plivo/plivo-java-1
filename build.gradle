@@ -13,7 +13,6 @@ buildscript {
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
 apply plugin: 'checkstyle'
-apply plugin: 'findbugs'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 
