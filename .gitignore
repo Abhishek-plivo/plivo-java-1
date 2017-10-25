@@ -3,6 +3,11 @@ build/
 .gradle/
 .idea/
 
+.classpath
+.project
+.settings/
+bin/
+
 *.class
 
 # Mobile Tools for Java (J2ME)
