@@ -13,6 +13,20 @@ public class UtilsTest {
     map.put("Duration", "300");
     map.put("CallUUID", "97ceeb52-58b6-11e1-86da-77300b68f8bb");
   }
+  
+  @Test
+  public void isValidSignatureTrue() throws Exception {
+    assertEquals(true,
+      Utils.isValidSignature("https://answer.url","12345","ehV3IKhLysWBxC1sy8INm0qGoQYdYsHwuoKjsX7FsXc=","my_auth_token")
+      );
+  }
+
+  @Test
+  public void isValidSignatureFalse() throws Exception {
+    assertEquals(false,
+      Utils.isValidSignature("https://answer.url","12345","ehV3IKhLysWBxC1sy8INm0qGoQYdYsHwuoKjsX7FsXc=","my_auth_tokens")
+      );
+  }
 
   @Test
   public void computeSignatureShouldWork() throws Exception {

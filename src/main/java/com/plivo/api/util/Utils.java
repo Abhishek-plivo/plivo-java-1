@@ -16,8 +16,48 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import static java.nio.charset.StandardCharsets.*;
+import java.net.*;
+
 
 public class Utils {
+	public static boolean isValidSignature (String url,String nonce,String signature,String authToken )
+    throws NoSuchAlgorithmException, InvalidKeyException {
+		byte[] nonceBytes = nonce.getBytes(ISO_8859_1);
+		nonce = new String(nonceBytes, UTF_8);
+		byte[] signatureBytes = signature.getBytes(ISO_8859_1);
+		signature = new String(signatureBytes, UTF_8);
+		byte[] authTokenBytes = authToken.getBytes(ISO_8859_1);
+		authToken = new String(authTokenBytes, UTF_8);
+		byte[] urlBytes = url.getBytes(ISO_8859_1);
+		url = new String(urlBytes, UTF_8);
+
+		String base_url = "";
+		String signature_mac = "";
+
+		try {
+			URL parsedURL = new URL(url);
+			base_url = parsedURL.getProtocol() + "://" + parsedURL.getHost() + parsedURL.getPath();
+		} catch (MalformedURLException e) {
+			System.out.println(e);
+			System.out.println("\nException in Plivo.utils.isValidSignature\n Valid 'url' needs to be passed\n\n");	  
+		}
+
+		try {
+			String payload = base_url+nonce;
+			String SIGNATURE_ALGORITHM = "HmacSHA256";
+			SecretKeySpec secret = new SecretKeySpec(authToken.getBytes(), SIGNATURE_ALGORITHM);
+			Mac mac = Mac.getInstance(SIGNATURE_ALGORITHM);
+			mac.init(secret);
+			signature_mac = new String(Base64.getEncoder().encode(mac.doFinal(payload.getBytes())));
+			signature_mac = signature_mac.trim();
+		} catch (Exception e) {
+			System.out.println("Error while creating HmacSHA256");
+		}
+
+		return signature_mac.equals(signature);
+  }
+
 
   public static boolean allNotNull(Object... objects) {
     return Stream.of(objects)
