@@ -16,8 +16,6 @@ apply plugin: 'checkstyle'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 
-sourceCompatibility = 1.8
-
 repositories {
     mavenCentral()
 }
